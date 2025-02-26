@@ -1,6 +1,6 @@
 .homePage{
     background: url('/public/main-picture.jpg') no-repeat 0px 0px / cover;
-    height: 100%;
+    height: 100vh;
         text-align: center;
     display: flex;
     flex-direction: column;
