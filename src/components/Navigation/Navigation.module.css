@@ -1,0 +1,20 @@
+.navList{
+    display: flex;
+    color: #101828;
+    gap: 32px;
+}
+.navItem{
+    font-family: "Manrope", sans-serif;
+font-weight: 500;
+font-size: 16px;
+line-height: 1.25;
+text-align: center;
+color: #101828;
+transition: transform 0.3s ease, color 0.3s ease;
+}
+.navItem:hover{
+    transform: scale(1.1);
+}
+.active{
+    color: #0b44cd;;
+}
