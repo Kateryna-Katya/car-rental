@@ -1,36 +1,33 @@
 .homePage{
     background: url('/public/main-picture.jpg') no-repeat 0px 0px / cover;
-    height: 100vh;
-        text-align: center;
+    height: 100%;
+  text-align: center;
     display: flex;
     flex-direction: column;
 }
+.container{
+font-family: "Manrope", sans-serif;
+margin-top: 436px;   
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+margin-bottom: 60px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
 .homeTitle{
-    font-family: "Manrope", sans-serif;
-    margin-top: 436px;
-    font-weight: 700;
+ font-weight: 700;
 font-size: 60px;
 line-height: 1.2;
-text-align: center;
+
 }
 .homeText{
-font-family: "Manrope", sans-serif;
 font-weight: 600;
 font-size: 24px; 
 line-height: 1.33333;
-text-align: center;
 margin-top: 16px;
+margin-bottom: 40px;
+
 }
 
-.homeButton{ 
-border-radius: 12px;
-padding: 12px 88px;
-width: 276px;
-height: 44px;
-font-family: "Manrope", sans-serif;
-font-weight: 600;
-font-size: 16px;
-line-height: 1.25;
-margin-top: 40px;
-margin-bottom: 60px;
-}

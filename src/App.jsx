@@ -12,7 +12,7 @@ const App=()=> {
 
   return (
     <>
-    <Router>
+    
     <Layout>    
      <Routes>
       <Route path="/" element={<HomePage />} />
@@ -20,7 +20,7 @@ const App=()=> {
       <Route path="/catalog/:id" element={<CarDetailsPage />} />
      </Routes>     
      </Layout>
-     </Router>
+     
     </>
   )
 }
