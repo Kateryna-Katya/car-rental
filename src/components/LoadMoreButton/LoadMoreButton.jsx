@@ -1,15 +1,15 @@
-import { useSelector } from 'react-redux';
-import style from './LoadMore.module.css';
-// import { selectTotalPages } from '../../redux/cars/selectors';
+import { useSelector } from "react-redux";
+import style from "./LoadMoreButton.module.css";
+import { selectTotalPages } from "../../redux/cars/selectors";
 
-const LoadMore = ({ page, setPage }) => {
+const LoadMoreButton = ({ page, setPage }) => {
   const totalPages = useSelector(selectTotalPages);
 
   return (
     <>
       {totalPages !== null && totalPages > page && (
         <button
-          className={css.btn}
+          className={style.loadMoreButton}
           type="button"
           onClick={() => {
             setPage(page + 1);
@@ -22,4 +22,4 @@ const LoadMore = ({ page, setPage }) => {
   );
 };
 
-export default LoadMore;
+export default LoadMoreButton;

@@ -1,27 +1,29 @@
-import { useEffect, useState,  } from "react"
-import { useDispatch, useSelector, } from "react-redux"
-import AllCarsList from "../../components/AllCarsList/AllCarsList"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AllCarsList from "../../components/AllCarsList/AllCarsList";
 
-import { fetchAllCars } from "../../redax/cars/operation"
-import style from "./CatalogPage.module.css"
-import Loader from "../../components/Loader/Loader"
-import { selectLoading } from "../../redax/cars/selectors"
+import { fetchAllCars } from "../../redux/cars/operation.js";
+import style from "./CatalogPage.module.css";
+import Loader from "../../components/Loader/Loader";
+import { selectLoading } from "../../redux/cars/selectors.js";
+import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton.jsx";
 
-const CatalogPage=()=>{
-  const dispatch=useDispatch();
+const CatalogPage = () => {
+  const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const [page, setPage]=useState(1);
+  const [page, setPage] = useState(1);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchAllCars(page));
-  },[dispatch,page])
+  }, [dispatch, page]);
 
   return (
     <div className={style.catalogContainer}>
-      {loading && <Loader/>}
-      <AllCarsList/>
+      {loading && <Loader />}
+      <AllCarsList />
+      <LoadMoreButton page={page} setPage={setPage} />
     </div>
-  )
-}
+  );
+};
 
-export default CatalogPage
+export default CatalogPage;

@@ -1,6 +1,11 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    margin: 24px 116px;
-    
+.headerContainer {
+  border-bottom: 1px solid #dadde1;
+  padding: 24px 120px;
+  width: 1440px;
+  height: 68px;
+  background-color: #dadde1;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
 }
