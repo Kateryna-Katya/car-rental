@@ -26,10 +26,14 @@ const filtersSlice = createSlice({
       }
     },
     removeFromFavorites: (state, action) => {
-      state.favourites = state.favourites.filter((car) => car.id !== action.payload);
+      state.favourites = state.favourites.filter(
+        (car) => car.id !== action.payload.id
+      );
     },
   },
 });
 
-export const { setFilters, resetFilters, addToFavorites, removeFromFavorites } = filtersSlice.actions;
+export const { setFilters, resetFilters, addToFavorites, removeFromFavorites } =
+  filtersSlice.actions;
+
 export default filtersSlice.reducer;

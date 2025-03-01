@@ -7,6 +7,7 @@ import style from "./CatalogPage.module.css";
 import Loader from "../../components/Loader/Loader";
 import { selectLoading } from "../../redux/cars/selectors.js";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton.jsx";
+import CarFiltersForm from "../../components/CarFiltersForm/CarFiltersForm.jsx";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const CatalogPage = () => {
   return (
     <div className={style.catalogContainer}>
       {loading && <Loader />}
+      <CarFiltersForm />
       <AllCarsList />
       <LoadMoreButton page={page} setPage={setPage} />
     </div>

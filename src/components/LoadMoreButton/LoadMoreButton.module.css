@@ -1,0 +1,19 @@
+.loadMoreButton {
+  border: 1px solid #3470ff;
+  background-color: inherit;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #475467;
+  border-radius: 12px;
+  padding: 12px 38px;
+  min-width: 156px;
+  min-height: 44px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin: 80px 522px 124px 522px;
+}
+.loadMoreButton:hover {
+  border: 1px solid #0b44cd;
+  background-color: inherit;
+}

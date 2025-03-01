@@ -72,7 +72,7 @@ const AllCarsItem = ({
             <li className={style.carInfoItem}>{editMileage(mileage)} km </li>
           </ul>
         </div>
-        <NavButton to={`/cars/${id}`}>Read More</NavButton>
+        <NavButton to={`/catalog/${id}`}>Read More</NavButton>
       </div>
     </li>
   );

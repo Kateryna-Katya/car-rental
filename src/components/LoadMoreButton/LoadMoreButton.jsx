@@ -6,7 +6,7 @@ const LoadMoreButton = ({ page, setPage }) => {
   const totalPages = useSelector(selectTotalPages);
 
   return (
-    <>
+    <div className={style.loadMoreContainer}>
       {totalPages !== null && totalPages > page && (
         <button
           className={style.loadMoreButton}
@@ -15,10 +15,10 @@ const LoadMoreButton = ({ page, setPage }) => {
             setPage(page + 1);
           }}
         >
-          LoadMore
+          Load More
         </button>
       )}
-    </>
+    </div>
   );
 };
 

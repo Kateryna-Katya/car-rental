@@ -1,90 +1,84 @@
-import { Field, Formik, Form } from 'formik';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllBrands, getAllCars } from '../../redux/cars/operations';
-// import Select from '../Select/Select';
-import carsPrices from '../../carsPrices.json';
-import { selectAllBrands } from '../../redux/cars/selectors';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { setFilters } from "../../redux/filters/slice";
+import { selectAllCars, selectLoading, selectAllBrands } from "../../redux/cars/selectors";
+import { Formik, Form, Field } from "formik";
+import { fetchAllBrands, fetchAllCars, fetchFilteredCars } from "../../redux/cars/operation";
+import SelectMenu from "../SelectMenu/SelectMenu"
+import style from "./CarFiltersForm.module.css";
 
-import css from './FiltersForm.module.css';
 
-import { changeFilter, initialState } from '../../redux/filters/slice';
+// const mileageInput = (value, word) => {
+//   let cleared = value;
 
-const initialValues = {
-  brand: '',
-  rentalPrice: '',
-  minMileage: '',
-  maxMileage: '',
-};
+//   if (value === word) return '';
 
-const FiltersForm = ({ page, setPage }) => {
+//   if (value.startsWith(word)) {
+//     cleared = clearMileage(value);
+//   }
+
+//   return `${word}${editMileage(cleared, ',')}`;
+// };
+
+// const clearMileage = value => {
+//   if (!value) return '';
+
+//   return value?.split(' ')[1]?.split(',').join('');
+// };
+
+const CarFiltersForm = () => {
   const dispatch = useDispatch();
   const brands = useSelector(selectAllBrands);
+  const cars = useSelector(selectAllCars);
+  const loading = useSelector(selectLoading);
+  const [minMileageValue, setMinMileageValue] = useState('');
+  const [maxMileageValue, setMaxMileageValue] = useState('');
 
   useEffect(() => {
-    dispatch(getAllBrands());
+    dispatch(fetchAllCars({}));
   }, [dispatch]);
 
-  const handleSubmit = values => {
-    setPage(1);
-    dispatch(changeFilter(initialState.filters));
-    dispatch(changeFilter(values));
-    dispatch(getAllCars(page));
-  };
-
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      <Form className={css.form}>
-        <div className={css.fieldWrapper}>
-          <label className={css.label} htmlFor="brand">
-            Car brand
-          </label>
-          <Field
-            id="brand"
-            name="brand"
-            component={Select}
-            options={brands}
-            placeholder={'Choose a brand'}
-          />
-        </div>
-        <div className={css.fieldWrapper}>
-          <label className={css.label} htmlFor="price">
-            Price/ 1 hour
-          </label>
-          <Field
-            id="price"
-            name="rentalPrice"
-            component={Select}
-            options={carsPrices}
-            placeholder={'Choose a price'}
-          />
-        </div>
-        <div className={css.fieldWrapper}>
-          <label className={css.label} htmlFor="minMileage">
-            Car mileage / km
-          </label>
-          <div className={css.mileageInputWrapper}>
-            <Field
-              className={css.mileageInput}
-              id="minMileage"
-              name="minMileage"
-              type="text"
-              placeholder="From"
-            />
-            <Field
-              className={css.mileageInput}
-              name="maxMileage"
-              type="text"
-              placeholder="To"
-            />
-          </div>
-        </div>
-        <button className={css.btn} type="submit">
-          Search
-        </button>
-      </Form>
-    </Formik>
+    <div>
+      <Formik
+        initialValues={{ brand: "", rentalPrice: "", minMileage: "", maxMileage: "" }}
+        onSubmit={(values) => {
+          dispatch(fetchFilteredCars(values));
+          dispatch(fetchAllCars(1));
+         
+        }}
+      >
+        {({ handleChange }) => (
+          <Form className={style.form}>
+   
+            <label className={style.label} htmlFor="brand">Car brand</label>
+            <Field as="select" id="brand" name="brand" options={brands} onChange={handleChange}>
+   
+            </Field>
+
+          
+            <label className={style.label} htmlFor="price">Price/ 1 hour</label>
+            <Field as="select" id="price" name="rentalPrice" onChange={handleChange}>
+              <option value="">Choose a price</option>
+              {[10, 20, 30, 40, 50, 60, 70, 80].map((price) => (
+                <option key={price} value={price}>To ${price} </option>
+              ))}
+            </Field>
+
+            <label className={style.label} htmlFor="minMileage">Car mileage / km</label>
+            <Field type="number" id="minMileage" name="minMileage" placeholder="From" value={minMileageValue} />
+            <Field type="number" id="maxMileage" name="maxMileage" placeholder="To" value={maxMileageValue}/>
+
+         
+            <button type="submit">Search</button>
+          </Form>
+        )}
+      </Formik>
+
+    
+      {loading ? <p>Loading...</p> : cars.map((car) => <p key={car.id}>{car.brand} - {car.model}</p>)}
+    </div>
   );
 };
 
-export default FiltersForm;
+export default CarFiltersForm;
