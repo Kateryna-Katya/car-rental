@@ -1,0 +1,58 @@
+.form{
+    border: 1px solid #8E929A;
+border-radius: 10px;
+padding: 32px;
+width: 640px;
+min-height: 488px;
+background-color: #fff;
+font-family: "Manrope", sans-serif;
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+color: #8E929A;
+}
+.title{
+    font-family: "Manrope", sans-serif;
+font-weight: 600;
+font-size: 20px;
+line-height: 120%;
+color:#101828;
+margin-bottom:8px;
+}
+.subtitle{
+margin-bottom: 24px; 
+}
+.input{
+    border-radius: 12px;
+padding: 12px 20px;
+width: 576px;
+height: 48px;
+background-color:#DADDE1;
+border: inherit
+
+}
+.inputComment{
+    border-radius: 12px;
+    padding: 12px 20px 56px 20px;
+    width: 576px;
+    height: 88px;
+    background-color:#DADDE1;
+border: inherit
+}
+.fieldWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.btn{
+    margin-top: 24px;
+    border-radius: 12px;
+padding: 12px 51px;
+width: 156px;
+height: 44px;
+margin-left: 210px;
+
+}
+.errorMessage{
+    color: red;
+}

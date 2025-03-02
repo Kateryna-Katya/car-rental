@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import style from "./NavButton.module.css"
+import { Link } from "react-router-dom";
+import style from "./NavButton.module.css";
 
-const NavButton=({to,children})=>{
-    const navigate = useNavigate();
-    return(
-        <button onClick={()=>navigate(to)} className={style.homeButton}>{children}</button>
-    )
-}
+const NavButton = ({ children, to  }) => {
+  return (
+    <Link to={to} className={style.homeButton}>
+      {children}
+    </Link>
+  );
+};
 
 export default NavButton;
