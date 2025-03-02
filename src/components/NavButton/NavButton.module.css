@@ -9,4 +9,11 @@
   line-height: 1.25;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
+  background-color: #3470ff;
+  border: none;
+  color: #ffffff;
+}
+.homeButton:hover, .homeButton:focus, .homeButton:active{
+  background-color: #0b44cd;
 }

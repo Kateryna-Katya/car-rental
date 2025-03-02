@@ -1,6 +1,75 @@
-.carInfoPage{
-    color: black;
+.carDetailsPage{
+    display: flex;
+     margin-top: 84px;
+    margin-left: 120px;
+    margin-bottom: 104px;
+    
 }
-.listTitle{
-    color:black
+.carDetailsImage{
+    border-radius: 19px;
+width: 640px;
+height: 512px;
 }
+.imageWrapper{
+     margin-bottom: 40px;
+}
+.carInfo{
+    display: flex;
+    flex-direction: column;
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.33333;
+    text-align: center;
+    color: #101828;
+}
+.carInfo{
+   text-align: start;
+    align-items: start;
+    margin-left: 72px;
+}
+.title{
+font-family: "Manrope", sans-serif;
+font-weight: 600;
+font-size: 24px;
+line-height: 1.33333;
+text-align: center;
+color: #101828;
+margin-bottom: 8px;
+}
+.locationMileage{
+font-weight: 500;
+font-size: 16px;
+line-height: 1.25;
+margin-bottom: 16px;
+}
+.price{
+    color: #3470ff;  
+    margin-bottom: 32px; 
+}
+.description{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    margin-bottom: 88px; 
+}
+.carInfoList{
+    font-family: "Manrope", sans-serif;
+font-weight: 600;
+font-size: 20px;
+line-height: 1.2;
+color: #101828;
+display: flex;
+flex-direction: column;
+gap: 110px;
+}
+.subtitle{
+    margin-bottom: 20px;
+}
+.listItem{
+    margin-bottom: 16px;
+}
+.icons{
+    padding-right: 4px;
+}
+
