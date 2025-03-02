@@ -4,6 +4,7 @@ import { selectTotalPages } from "../../redux/cars/selectors";
 
 const LoadMoreButton = ({ page, setPage }) => {
   const totalPages = useSelector(selectTotalPages);
+ 
 
   return (
     <div className={style.loadMoreContainer}>
@@ -11,9 +12,7 @@ const LoadMoreButton = ({ page, setPage }) => {
         <button
           className={style.loadMoreButton}
           type="button"
-          onClick={() => {
-            setPage(page + 1);
-          }}
+          onClick={() => setPage((prevPage) => prevPage + 1)}
         >
           Load More
         </button>

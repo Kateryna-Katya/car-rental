@@ -1,82 +1,121 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setFilters } from "../../redux/filters/slice";
-import { selectAllCars, selectLoading, selectAllBrands } from "../../redux/cars/selectors";
+import {  selectAllBrands } from "../../redux/cars/selectors";
 import { Formik, Form, Field } from "formik";
 import { fetchAllBrands, fetchAllCars, fetchFilteredCars } from "../../redux/cars/operation";
-import SelectMenu from "../SelectMenu/SelectMenu"
 import style from "./CarFiltersForm.module.css";
-
-
-// const mileageInput = (value, word) => {
-//   let cleared = value;
-
-//   if (value === word) return '';
-
-//   if (value.startsWith(word)) {
-//     cleared = clearMileage(value);
-//   }
-
-//   return `${word}${editMileage(cleared, ',')}`;
-// };
-
-// const clearMileage = value => {
-//   if (!value) return '';
-
-//   return value?.split(' ')[1]?.split(',').join('');
-// };
+import Icon from "../Icon";
 
 const CarFiltersForm = () => {
   const dispatch = useDispatch();
-  const brands = useSelector(selectAllBrands);
-  const cars = useSelector(selectAllCars);
-  const loading = useSelector(selectLoading);
-  const [minMileageValue, setMinMileageValue] = useState('');
-  const [maxMileageValue, setMaxMileageValue] = useState('');
+  const brands = useSelector(selectAllBrands) || [];
+ 
+  const [brandOpen, setBrandOpen] = useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAllCars({}));
+    dispatch(fetchAllBrands());
   }, [dispatch]);
 
   return (
     <div>
       <Formik
         initialValues={{ brand: "", rentalPrice: "", minMileage: "", maxMileage: "" }}
-        onSubmit={(values) => {
+        onSubmit={(values, { setSubmitting }) => {
+          dispatch(setFilters(values));
           dispatch(fetchFilteredCars(values));
-          dispatch(fetchAllCars(1));
-         
+          setSubmitting(false);
         }}
       >
-        {({ handleChange }) => (
+        {({ values, resetForm }) => (
           <Form className={style.form}>
-   
-            <label className={style.label} htmlFor="brand">Car brand</label>
-            <Field as="select" id="brand" name="brand" options={brands} onChange={handleChange}>
-   
-            </Field>
+            
+        <div className={style.inputContainer}>
+            <div className={style.selectContainer}>
+              <label className={style.label} htmlFor="brand">Car brand</label>
+              <div className={style.selectWrapper}>
+                <Field 
+                  className={style.field} 
+                  as="select" 
+                  id="brand" 
+                  name="brand"
+                  onFocus={() => setBrandOpen(true)}
+                  onBlur={() => setBrandOpen(false)}
+                >
+                  <option value="">Choose a brand</option> 
+                  {brands.map((brand) => (
+                    <option key={brand} value={brand}>{brand}</option>
+                  ))}
+                </Field>
+                <div className={style.arrow}>
+                  <Icon 
+                    id={brandOpen ? "icon-arrow-up" : "icon-arrow-down"} 
+                    width={16} 
+                    height={16} 
+                   
+                  />
+                </div>
+              </div>
+            </div>
+
+     
+            <div className={style.selectContainer}>
+              <label className={style.label} htmlFor="price">Price/ 1 hour</label>
+              <div className={style.selectWrapper}>
+                <Field 
+                  className={style.field} 
+                  as="select" 
+                  id="price" 
+                  name="rentalPrice"
+                  onFocus={() => setPriceOpen(true)}
+                  onBlur={() => setPriceOpen(false)}
+                >
+                  <option value="">Choose a price</option>
+                  {[10, 20, 30, 40, 50, 60, 70, 80].map((price) => (
+                    <option key={price} value={price}>To ${price}</option>
+                  ))}
+                </Field>
+                <div className={style.arrow}>
+                  <Icon 
+                    id={priceOpen ? "icon-arrow-up" : "icon-arrow-down"} 
+                    width={16} 
+                    height={16} 
+                  />
+                </div>
+              </div>
+            </div>
+            
 
           
-            <label className={style.label} htmlFor="price">Price/ 1 hour</label>
-            <Field as="select" id="price" name="rentalPrice" onChange={handleChange}>
-              <option value="">Choose a price</option>
-              {[10, 20, 30, 40, 50, 60, 70, 80].map((price) => (
-                <option key={price} value={price}>To ${price} </option>
-              ))}
-            </Field>
-
-            <label className={style.label} htmlFor="minMileage">Car mileage / km</label>
-            <Field type="number" id="minMileage" name="minMileage" placeholder="From" value={minMileageValue} />
-            <Field type="number" id="maxMileage" name="maxMileage" placeholder="To" value={maxMileageValue}/>
-
-         
-            <button type="submit">Search</button>
+            <div className={style.labelContainer}> 
+              <label className={style.label} htmlFor="maxMileage">Car mileage / km</label>
+             <div className={style.mileage}>
+              <Field className={style.fieldMin} type="number" id="minMileage" name="minMileage" placeholder="From" value={values.minMileage || ""} />
+              <Field className={style.fieldMax} type="number" id="maxMileage" name="maxMileage" placeholder="To" value={values.maxMileage || ""} />
+            </div>
+</div>
+          
+           <div className={style.buttons}>
+              <button className={style.buttonStyle} type="submit">Search</button>
+              <button 
+              className={style.buttonStyle}
+                type="button" 
+                onClick={() => {
+                  resetForm();
+                  dispatch(setFilters({}));
+                  dispatch(fetchAllCars({}));
+                }}
+              >
+                Reset
+              </button>
+            </div></div>
           </Form>
         )}
       </Formik>
 
-    
-      {loading ? <p>Loading...</p> : cars.map((car) => <p key={car.id}>{car.brand} - {car.model}</p>)}
+      
     </div>
   );
 };

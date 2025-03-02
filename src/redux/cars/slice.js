@@ -19,7 +19,7 @@ const carsSlice = createSlice({
       page: null,
       totalPages: 1,
     },
-    brands: null,
+    brands: [],
     loading: false,
     error: null,
   },
@@ -35,13 +35,14 @@ const carsSlice = createSlice({
           (car) => !existingIds.has(car.id)
         );
 
-        state.allCars.cars = state.allCars.page
-          ? [...state.allCars.cars, ...newCars]
-          : action.payload.cars;
+        state.allCars.cars = action.payload.page > 1
+        ? [...state.allCars.cars, ...newCars]
+        : action.payload.cars;
 
         state.allCars.totalCars = action.payload.totalCars;
         state.allCars.page = action.payload.page;
         state.allCars.totalPages = action.payload.totalPages;
+        
       })
 
       .addCase(fetchAllCars.rejected, handleRejected)
@@ -52,7 +53,11 @@ const carsSlice = createSlice({
           (state.brands = action.payload);
       })
       .addCase(fetchAllBrands.rejected, handleRejected)
-      .addCase(fetchFilteredCars.pending, handlePending)
+      .addCase(fetchFilteredCars.pending,(state)=>{
+        state.loading=true;
+        state.allCars.cars=[];
+        state.allCars.page = 1;
+      })
       .addCase(fetchFilteredCars.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
